@@ -43,7 +43,7 @@
 
 (setq test-data (calcFunc-subvec data-matrix 1 (round (* (calcFunc-vlen data-matrix) .005))))
 (setq training-matrix (calcFunc-mcol test-data '(vec 1 2 3)))
-(calcFunc-vlen (setq training-values (calcFunc-mcol test-data 4)))
+(setq training-values (calcFunc-mcol test-data 4))
 (setq learning-rate (math-make-float 1 -2))
 
 (defvar l-update)
