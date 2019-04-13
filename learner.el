@@ -22,8 +22,14 @@
   (forward-line 1)
   (while (< (point) (point-max))
     (beginning-of-line 1)
-    (setq data-matrix (calcFunc-append data-matrix
-                                       (calcFunc-cvec (append '(vec) (mapcar (lambda (s) (math-read-number s)) (split-string (buffer-substring (point) (progn (end-of-line) (point))) "," ))) 1)))
+    (setq data-matrix (calcFunc-append
+                       data-matrix
+                       (calcFunc-cvec
+                        (append '(vec)
+                                (mapcar
+                                 (lambda (s) (math-read-number s))
+                                 (split-string (buffer-substring (point) (progn (end-of-line) (point))) "," )))
+                        1)))
     (forward-line 1)
     )
   )
@@ -42,10 +48,17 @@
 
 (defvar l-update)
 (dotimes (n 1000)
-  (let ((gradients (pb/back-prop (append learn-layers (list training-matrix)) training-values 'pb/tanh-mat 'pb/tanh-mat-prime)))
+  (let ((gradients (pb/back-prop
+                    (append learn-layers (list training-matrix))
+                    training-values
+                    'pb/tanh-mat
+                    'pb/tanh-mat-prime)))
     (setq l-update (list))
     (setq learn-layers (dolist (i (reverse (number-sequence 0 (1- (length learn-layers)))) l-update)
-                         (setq l-update (cons (math-sub (nth i learn-layers) (math-mul learning-rate (nth i gradients))) l-update))
+                         (setq l-update (cons (math-sub (nth i learn-layers)
+                                                        (math-mul learning-rate
+                                                                  (nth i gradients)))
+                                              l-update))
        ))
     (when (= 0 (mod n 100))
       (message "Mean Absolute Error: %s"
