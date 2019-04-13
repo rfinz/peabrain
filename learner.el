@@ -1,4 +1,4 @@
-;; learn.el -- test case learning -*- Mode: Emacs-Lisp -*-
+;; learner.el -- test case learning -*- Mode: Emacs-Lisp -*-
 ;;; Commentary:
 ;; Why
 
@@ -60,4 +60,4 @@
   )
 
 (provide 'learn)
-;;; learn.el ends here
+;;; learner.el ends here
