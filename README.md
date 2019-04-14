@@ -13,7 +13,7 @@ I also skipped regularization because at this point I'm not concerned with pract
 
 Someone please tell me if any of the algorithms are straight up wrong because I absolutely cannot be bothered to validate my 44 car model.
 
-## Useage Notes
+## Usage Notes
 
 Peabrain operates directly on matrices of weights. The "neurons" are virtual and fall out of the activation math. pb/compute-guess and pb/back-prop both take a "layers" argument that is a list of calc matrices (... W3 W2 W1 INPUTS), with the leftmost matrices in the list being the closest to the output layer (this is maybe backwards from the way most people would think about it). In practice, the matrices will have a number of rows equal to the number of columns in the last matrix (+1 row for the biases), and a number of columns equal to the number of "neurons" in the current layer.
 
