@@ -1,12 +1,14 @@
 (ns peabrain.core
   (:require [uncomplicate.neanderthal.core :refer :all]
-            [uncomplicate.neanderthal.native :refer :all]))
+            [peabrain.util :as pb]))
 
 (defn compute-guess
-  "I don't do a whole lot."
+  "Compute guess (mat) for LAYERS using F as the activation function.
+LAYERS should look like '(W3 W2 W1 INPUTS)"
   [layers f]
-  (apply f (mm (compute-guess ((rest layers) f) (first layers))))
-  )
+  (if (== 1 (length layers))
+    (first layers)
+    (apply f (mm (pb/right-ones (compute-guess (rest layers) f) (first layers))))))
 
 (defn back-prop
   "I don't do a lot either."
