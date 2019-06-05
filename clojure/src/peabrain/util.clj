@@ -22,7 +22,7 @@
   )
 
 (defn right-ones
-  "Add a 1 to the end of every row in matrix M. Map OPTIONS is passed to matrix creation method."
+  "Add a 1 to the end of every row in matrix M."
   ([m]
    (nn/dge (vec (map (fn [r] (conj (vec (map (fn [i] i) r)) 1.0)) (nc/rows m))))
    )
@@ -41,4 +41,10 @@
 (defn bottom-vals
   "Add a row of val to the bottom of matrix M."
   [m]
+  )
+
+(defn apply-mat
+  "Apply function F to every item in matrix M."
+  [f m]
+  (nn/dge (map (fn [r] (map f r)) (nc/rows m)))
   )
