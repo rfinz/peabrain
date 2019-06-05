@@ -43,7 +43,7 @@
   [m]
   )
 
-(defn apply-mat
+(defn map-mat
   "Apply function F to every item in matrix M."
   [f m]
   (nn/dge (map (fn [r] (map f r)) (nc/rows m)))
