@@ -31,11 +31,14 @@
 (defn right-shrink
   "Remove a column from the right hand side of matrix M."
   [m]
+  (nc/submatrix m (nc/mrows m) (- (nc/ncols m) 1))
   )
 
 (defn bottom-ones
   "Add a row of 1s to the bottom of matrix M."
   [m]
+  ; forcing intermediate result to vec allows conj to append to end
+  (nn/dge (conj (vec (map (fn [r] (map (fn [i] i) r)) (nc/rows m))) (repeat (nc/ncols m) 1.0)))
   )
 
 (defn bottom-vals
