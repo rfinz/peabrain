@@ -1,8 +1,7 @@
 (ns peabrain.util
   "Utilities for padding matrices, random initialization, and other ML adjacent activities."
   (:require [uncomplicate.neanderthal.core :as nc]
-            [uncomplicate.neanderthal.native :as nn]
-            [uncomplicate.neanderthal.vect-math :as nv]))
+            [uncomplicate.neanderthal.native :as nn]))
 
 (defn hadamard
   "Entrywise product of M1 M2."
