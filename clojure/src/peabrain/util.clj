@@ -48,6 +48,8 @@
 
 (defn map-mat
   "Apply function F to every item in matrix M."
-  [f m]
-  (nn/dge (map (fn [r] (map f r)) (nc/rows m)))
+  ([f m]
+   (nn/dge (map (fn [r] (map f r)) (nc/rows m))))
+  ([f m1 m2] ;; this could maybe be adapted to work with an arbitrary number of matrices
+   (nn/dge (map (fn [r1 r2] (map f r1 r2)) (nc/rows m1) (nc/rows m2))))
   )
