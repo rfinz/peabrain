@@ -1,7 +1,5 @@
 (ns peabrain.core
   (:require [uncomplicate.neanderthal.core :as nc]
-            [uncomplicate.neanderthal.math :as nm :refer [tanh]]
-            [uncomplicate.neanderthal.native :as nn]
             [peabrain.util :as pb]))
 
 (defn compute-guess
