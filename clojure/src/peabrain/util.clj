@@ -1,7 +1,8 @@
 (ns peabrain.util
   "Utilities for padding matrices, random initialization, and other ML adjacent activities."
   (:require [uncomplicate.neanderthal.core :as nc]
-            [uncomplicate.neanderthal.native :as nn]))
+            [uncomplicate.neanderthal.native :as nn]
+            [clojure.data.csv :as csv]))
 
 (defn hadamard
   "Entrywise product of M1 M2."
@@ -51,4 +52,10 @@
    (nn/dge (map (fn [r] (map f r)) (nc/rows m))))
   ([f m1 m2] ;; this could maybe be adapted to work with an arbitrary number of matrices
    (nn/dge (map (fn [r1 r2] (map f r1 r2)) (nc/rows m1) (nc/rows m2))))
+  )
+
+(defn csv->mat
+  "Read CSV into native neanderthal matrix."
+  [reader & options]
+  (nn/dge (vec (rest (apply csv/read-csv reader options))))
   )
