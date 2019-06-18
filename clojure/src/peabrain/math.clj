@@ -52,7 +52,7 @@
                  gamma
                  pow-of-2?])
 
-(defn atanh-prime
+(defn tanh-prime
   [x]
-  (- 1 (sqr (tanh x)))
+  (- 1.0 (sqr (tanh x)))
   )

@@ -2,6 +2,7 @@
   "Utilities for padding matrices, random initialization, and other ML adjacent activities."
   (:require [uncomplicate.neanderthal.core :as nc]
             [uncomplicate.neanderthal.native :as nn]
+            [uncomplicate.neanderthal.aux :as na]
             [clojure.data.csv :as csv]))
 
 (defn hadamard
@@ -19,6 +20,9 @@
 (defn shuffle
   "Shuffle the rows of matrix M. Shuffling is done in place."
   [m]
+  (doseq [i (reverse (range 1 (nc/mrows m)))]
+    (na/swap-rows! m (nn/iv (rand-int i) i))
+    )
   )
 
 (defn right-ones
@@ -42,8 +46,9 @@
   )
 
 (defn bottom-vals
-  "Add a row of val to the bottom of matrix M."
-  [m]
+  "Add a row of V to the bottom of matrix M."
+  [m v]
+  (nn/dge (conj (vec (map (fn [r] (map (fn [i] i) r)) (nc/rows m))) (repeat (nc/ncols m) v)))
   )
 
 (defn map-mat
@@ -57,5 +62,7 @@
 (defn csv->mat
   "Read CSV into native neanderthal matrix."
   [reader & options]
-  (nn/dge (vec (rest (apply csv/read-csv reader options))))
+  (nn/dge
+   (vec (map
+     (fn [r] (map #(Double/parseDouble %) r)) (rest (apply csv/read-csv reader options)))))
   )

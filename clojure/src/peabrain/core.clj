@@ -22,7 +22,7 @@ LAYERS should look like '(W3 W2 W1 INPUTS)"
             ;; first time entering the function, do this:
             (pb/hadamard
              (pb/map-mat - values (compute-guess layers f))
-             (nc/ax -1.0 (pb/map-mat f-prime (nc/mm (pb/right-ones (compute-guess (rest layers) f)) (first layers))))
+             (nc/scal! -1.0 (pb/map-mat f-prime (nc/mm (pb/right-ones (compute-guess (rest layers) f)) (first layers))))
              )
             ;; if value from a previous calculation is available do this:
             (pb/hadamard
