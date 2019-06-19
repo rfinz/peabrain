@@ -25,21 +25,27 @@
              (pu/bottom-vals (pu/random-matrix 3 3) 0.1)
              ])
 
-(dotimes [n 1]
+(dotimes [n 100]
   (let [gradients (pb/back-prop
                    (conj layers training-data)
                    training-values
                    pm/tanh
                    pm/tanh-prime
                    )]
-    (println gradients)
-    (println layers)
-    (def layers (mapv (fn [i1 i2] (pu/map-mat - i1 (nc/scal! learning-rate i2))) layers gradients))
+    (def layers
+      (mapv
+       (fn [layer gradient]
+         (pu/map-mat -
+                     layer
+                     (nc/scal! (* learning-rate (/ 1.0 (nc/mrows training-values))) gradient))
+         )
+       layers gradients)
+      )
     )
   (when (== 0 (mod n 100))
-    (println "Mean Absolute Error: " (/ (nc/sum (pu/map-mat pm/abs (pu/map-mat - training-values (pb/compute-guess (conj layers training-data) pm/tanh)))) (nc/mrows training-values)))
+    (println "Mean Absolute Error: " (/ (nc/sum (pu/map-mat pm/abs (pu/map-mat - (pb/compute-guess (conj layers training-data) pm/tanh) training-values))) (nc/mrows training-values)))
     )
   )
 
-(println "Mean Absolute Error: " (/ (nc/sum (pu/map-mat pm/abs (pu/map-mat - validation-values (pb/compute-guess (conj layers validation-data) pm/tanh)))) (nc/mrows validation-values)))
-(nc/mrows training-data)
+(println "Mean Absolute Error on Validation Set: " (/ (nc/sum (pu/map-mat pm/abs (pu/map-mat - (pb/compute-guess (conj layers validation-data) pm/tanh) validation-values))) (nc/mrows validation-values)))
+
