@@ -4,7 +4,7 @@
 
 (defn compute-guess
   "Compute guess (mat) for LAYERS using F as the activation function.
-LAYERS should look like '(W3 W2 W1 INPUTS)"
+LAYERS should look like [W3 W2 W1 INPUTS]"
   [layers f]
   (if (= 1 (count layers))
     (first layers)
@@ -12,7 +12,7 @@ LAYERS should look like '(W3 W2 W1 INPUTS)"
 
 (defn back-prop
   "Produce matrix of slopes for list of matrices LAYERS and expected VALUES.
-  Derivative of activation function F-PRIME and activation function F. LAYERS should look like '(W3 W2 W1 INPUTS)"
+  Derivative of activation function F-PRIME and activation function F. LAYERS should look like [W3 W2 W1 INPUTS]"
   ([layers values f f-prime] (back-prop layers values f f-prime nil))
   ([layers values f f-prime previous]
    (if (< 1 (count layers))
