@@ -25,7 +25,7 @@
              (pu/bottom-vals (pu/random-matrix 3 3) 0.1)
              ])
 
-(dotimes [n 100]
+(dotimes [n 1000]
   (let [gradients (pb/back-prop
                    (conj layers training-data)
                    training-values
