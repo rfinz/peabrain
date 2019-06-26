@@ -2,7 +2,7 @@
   "Utilities for padding matrices, random initialization, and other ML adjacent activities."
   (:require [uncomplicate.neanderthal.core :as nc]
             [uncomplicate.neanderthal.native :as nn]
-            [uncomplicate.neanderthal.aux :as na]
+            [uncomplicate.neanderthal.auxil :as na]
             [clojure.data.csv :as csv]))
 
 (defn hadamard

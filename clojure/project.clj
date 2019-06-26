@@ -3,7 +3,7 @@
   :url "https://github.com/rfinz/peabrain"
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/data.csv "0.1.4"]
-                 [uncomplicate/neanderthal "0.22.1"]
+                 [uncomplicate/neanderthal "0.25.1"]
                  [potemkin "0.4.5"]]
   :repl-options {:init-ns peabrain.core}
   :exclusions [[org.jcuda/jcuda-natives :classifier "apple-x86_64"]
