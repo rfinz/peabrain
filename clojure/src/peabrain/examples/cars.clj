@@ -1,5 +1,5 @@
-(ns peabrain.examples.learner
-  "Learns a single value output from a 3 column csv."
+(ns peabrain.examples.cars
+  "Learns normalized car price from a 3 column csv with 3 fully connected layers. "
   (:require [peabrain.core :as pb]
             [peabrain.util :as pu]
             [peabrain.math :as pm]
@@ -40,7 +40,7 @@
                      (nc/scal! (* learning-rate (/ 1.0 (nc/mrows training-values))) gradient))
          )
        layers gradients)
-      )
+       )
     )
   (when (== 0 (mod n 100))
     (println "Mean Absolute Error: " (/ (nc/sum (pu/map-mat pm/abs (pu/map-mat - (pb/compute-guess (conj layers training-data) pm/tanh) training-values))) (nc/mrows training-values)))
