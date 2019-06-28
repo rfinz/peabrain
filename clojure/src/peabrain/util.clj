@@ -3,7 +3,8 @@
   (:require [uncomplicate.neanderthal.core :as nc]
             [uncomplicate.neanderthal.native :as nn]
             [uncomplicate.neanderthal.auxil :as na]
-            [clojure.data.csv :as csv]))
+            [clojure.data.csv :as csv])
+  (:refer-clojure :exclude [shuffle]))
 
 (defn hadamard
   "Entrywise product of `m1` and `m2`."
@@ -46,9 +47,9 @@
   )
 
 (defn bottom-vals
-  "Add a row of `v` to the bottom of matrix `m`."
-  [m v]
-  (nn/dge (conj (vec (map (fn [r] (map (fn [i] i) r)) (nc/rows m))) (repeat (nc/ncols m) v)))
+  "Add a row of `x` to the bottom of matrix `m`."
+  [m x]
+  (nn/dge (conj (vec (map (fn [r] (map (fn [i] i) r)) (nc/rows m))) (repeat (nc/ncols m) x)))
   )
 
 (defn map-mat
@@ -65,5 +66,11 @@
   [reader & options]
   (nn/dge
    (vec (map
-     (fn [r] (map Double/parseDouble r)) (rest (apply csv/read-csv reader options)))))
+     (fn [r] (map #(Double/parseDouble %) r)) (rest (apply csv/read-csv reader options)))))
+  )
+
+(defn one-hot
+  "Take `length` and `position` and produce a one-hot (clojure) vector."
+  [length position]
+  (assoc (vec (repeat length 0.0)) position 1.0)  
   )
